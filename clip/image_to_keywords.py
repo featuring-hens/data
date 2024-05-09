@@ -2,10 +2,17 @@ import clip
 import torch
 import pandas
 import time
+import argparse
+import os
 
 from PIL import Image
 from featuring_keywords import dict_keywords
 
+
+# argparse로 입력 인자 처리
+parser = argparse.ArgumentParser()
+parser.add_argument("image_path", type=str, help="Image File Path")
+args = parser.parse_args()
 
 # 피처링 정의 키워드 추출
 # file = pandas.read_excel('keywords.xlsx', header=None)
@@ -14,6 +21,9 @@ from featuring_keywords import dict_keywords
 keywords = list(dict_keywords.keys())
 
 def image_to_keywords(image_path: str):
+    """
+    CLIP 모델을 사용하여 입력된 이미지와 관련된 피처링 정의 키워드(3개)를 출력하는 함수
+    """
     # CLIP 모델 로드
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model, preprocess = clip.load('ViT-B/32', device=device)
@@ -45,6 +55,7 @@ def image_to_keywords(image_path: str):
     for top_keyword in top_keywords_eng:
         top_keywords_kor.append(dict_keywords[top_keyword])
 
+    print("Image File Name:", os.path.basename(image_path))
     print("TOP 3 Keywords (ENG):", top_keywords_eng)
     print("TOP 3 Keywords (KOR):", top_keywords_kor)
     print("Execution Time:", end_time - start_time)
@@ -53,14 +64,31 @@ def image_to_keywords(image_path: str):
 
 
 if __name__ == "__main__":
-    print("1. baseball-stadium")
-    image_to_keywords("images/baseball-stadium.jpeg")
-    print()
+    image_to_keywords(args.image_path)
 
-    print("2. artist")
-    image_to_keywords("images/artist.jpeg")
-    print()
 
-    print("3. tiger")
-    image_to_keywords("images/tiger.jpg")
-    print()
+"""
+명령어 실행 예시 및 결과
+
+[1] python clip/image_to_keywords.py images/artist.jpeg
+Image File Name: artist.jpeg
+TOP 3 Keywords (ENG): ['Comics/Animation/Cartoons', 'Hobbies/Culture', 'Celebrities/Entertainment']
+TOP 3 Keywords (KOR): ['만화/애니/툰', '취미/문화', '스타/연예인']
+Execution Time: 0.302170991897583
+
+-
+
+[2] python clip/image_to_keywords.py images/baseball-stadium.jpeg
+Image File Name: baseball-stadium.jpeg
+TOP 3 Keywords (ENG): ['Beauty', 'Home/Living', 'Sports/Fitness']
+TOP 3 Keywords (KOR): ['뷰티', '홈/리빙', '스포츠/운동']
+Execution Time: 0.34385204315185547
+
+-
+
+[3] python clip/image_to_keywords.py images/tiger.jpg
+Image File Name: tiger.jpg
+TOP 3 Keywords (ENG): ['Beauty', 'Travel', 'Fashion']
+TOP 3 Keywords (KOR): ['뷰티', '여행', '패션']
+Execution Time: 0.30945897102355957
+"""
