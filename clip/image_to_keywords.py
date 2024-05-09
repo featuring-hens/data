@@ -1,3 +1,9 @@
+"""
+CLIP
+
+*https://github.com/openai/CLIP
+"""
+
 import clip
 import torch
 import pandas
@@ -24,6 +30,8 @@ def image_to_keywords(image_path: str):
     """
     CLIP 모델을 사용하여 입력된 이미지와 관련된 피처링 정의 키워드(3개)를 출력하는 함수
     """
+    start_time = time.time()
+
     # CLIP 모델 로드
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model, preprocess = clip.load('ViT-B/32', device=device)
@@ -33,9 +41,6 @@ def image_to_keywords(image_path: str):
 
     # 키워드를 텍스트로 변환하고 CLIP에 맞게 전처리
     text_tokens = clip.tokenize(keywords).to(device)
-
-    # 모델 실행 시작
-    start_time = time.time()
 
     # 이미지-키워드 유사성 계산
     with torch.no_grad():
@@ -48,12 +53,9 @@ def image_to_keywords(image_path: str):
         # 가장 높은 점수를 가진 키워드 3개 추출
         top_keywords_eng = [keywords[i] for i in similarities.argsort(descending=True)[:3]]
 
-    # 모델 실행 종료
-    end_time = time.time()
+    top_keywords_kor = [dict_keywords[keyword] for keyword in top_keywords_eng]
 
-    top_keywords_kor = []
-    for top_keyword in top_keywords_eng:
-        top_keywords_kor.append(dict_keywords[top_keyword])
+    end_time = time.time()
 
     print("Image File Name:", os.path.basename(image_path))
     print("TOP 3 Keywords (ENG):", top_keywords_eng)
@@ -74,7 +76,7 @@ if __name__ == "__main__":
 Image File Name: artist.jpeg
 TOP 3 Keywords (ENG): ['Comics/Animation/Cartoons', 'Hobbies/Culture', 'Celebrities/Entertainment']
 TOP 3 Keywords (KOR): ['만화/애니/툰', '취미/문화', '스타/연예인']
-Execution Time: 0.302170991897583
+Execution Time: 4.06693696975708
 
 -
 
@@ -82,7 +84,7 @@ Execution Time: 0.302170991897583
 Image File Name: baseball-stadium.jpeg
 TOP 3 Keywords (ENG): ['Beauty', 'Home/Living', 'Sports/Fitness']
 TOP 3 Keywords (KOR): ['뷰티', '홈/리빙', '스포츠/운동']
-Execution Time: 0.34385204315185547
+Execution Time: 4.002578020095825
 
 -
 
@@ -90,5 +92,5 @@ Execution Time: 0.34385204315185547
 Image File Name: tiger.jpg
 TOP 3 Keywords (ENG): ['Beauty', 'Travel', 'Fashion']
 TOP 3 Keywords (KOR): ['뷰티', '여행', '패션']
-Execution Time: 0.30945897102355957
+Execution Time: 3.6416969299316406
 """
