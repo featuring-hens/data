@@ -41,25 +41,25 @@ def image_to_keywords(image_path: str):
 
     payload = {
         "model": "gpt-4-turbo",
-        "messages": [
-        {
+        "messages": [{
             "role": "user",
             "content": [
                 {
                     "type": "text",
-                    "text": f"{dict_keywords}에서 주어진 이미지와 가장 연관성이 높은 키워드(한국어)를 3개 추출해 주세요. \
-                                키워드 추출 결과는 ['키워드_1', '키워드_2', '키워드_3']의 형태로 작성해 주세요."
+                    "text": f"주어진 이미지는 인스타그램(instagram)에 모바일로 접속했을 때 보여지는 화면이고, \
+                                해당 계정의 프로필 일부와 최근 게시물(일반적으로 9개)이 나온 사진입니다. \
+                                {dict_keywords}에서 주어진 이미지와 가장 연관성이 높은 키워드(한국어)를 3개 추출해 주세요. \
+                                키워드 추출 결과에 대한 응답은 ['키워드_1', '키워드_2', '키워드_3']만 작성해 주세요."
                                 # 그리고 왜 그러한 키워드가 주어진 이미지와 연관성이 높다고 판단했는지에 대해 간략히 설명해 주세요."
                 },
                 {
                     "type": "image_url",
                     "image_url": {
                     "url": f"data:image/jpeg;base64,{base64_image}"
-                }
+                    }
                 }
             ]
-        }
-        ],
+        }],
         "max_tokens": 300
     }
 
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
 
 """
-명령어 실행 예시 및 결과
+명령어 실행 예시 및 결과 (1)
 
 
 > python openai/encoded_image_to_keywords.py --image-path images/artist.jpeg images/baseball-stadium.jpeg images/tiger.jpg
@@ -99,4 +99,18 @@ Execution Time: 5.59466028213501
 
 TOP 3 Keywords: ['반려동물', '여행', '취미/문화']
 Execution Time: 5.311323881149292
+
+
+명령어 실행 예시 및 결과 (2)
+
+
+> python openai/encoded_image_to_keywords.py --image-path images/ig/amottivation.jpg images/ig/jbkwak.jpg images/ig/risabae_art.jpg
+TOP 3 Keywords: ['스포츠/운동', '데일리 라이프', '패션']
+Execution Time: 10.668005228042603
+
+TOP 3 Keywords: ['여행', '스타/연예인', '스포츠/운동']
+Execution Time: 9.103341817855835
+
+TOP 3 Keywords: ['뷰티', '패션', '미디어/엔터테인먼트']
+Execution Time: 7.6989171504974365
 """
