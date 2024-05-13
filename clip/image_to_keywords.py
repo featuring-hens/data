@@ -65,11 +65,12 @@ def image_to_keywords(image_path: str):
 
 
 if __name__ == "__main__":
+    print("Image File Path:", args.image_path)
     if args.image_path:
         for image_path in args.image_path:
             image_to_keywords(image_path)
     else:
-        print("Error: Image File Path")
+        print("Error: Image File Path Required")
 
 
 """
@@ -92,4 +93,101 @@ Image File Name: tiger.jpg
 TOP 3 Keywords (ENG): ['Beauty', 'Travel', 'Fashion']
 TOP 3 Keywords (KOR): ['뷰티', '여행', '패션']
 Execution Time: 3.312255859375
+"""
+
+
+"""
+프롬프트 반영된 코드!
+
+import clip
+import torch
+from PIL import Image
+import numpy as np
+import time
+import argparse
+import os
+
+# argparse로 입력 인자 처리
+parser = argparse.ArgumentParser()
+parser.add_argument("--image-path", nargs="*", type=str, help="Image File Path", default=[])
+parser.add_argument("--prompt-file", type=str, help="File containing prompts for each image", default="")
+
+args = parser.parse_args()
+
+# Function to read prompts from a file
+def read_prompts(prompt_file):
+    with open(prompt_file, "r") as file:
+        prompts = [line.strip() for line in file.readlines()]
+    return prompts
+
+# Function to perform inference
+def image_to_keywords(image_path: str, prompt: str):
+    start_time = time.time()
+    
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model, preprocess = clip.load('ViT-B/32', device=device)
+    
+    preprocessed_image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
+    text_tokens = clip.tokenize([prompt]).to(device)  # Tokenizing the custom prompt
+    
+    with torch.no_grad():
+        image_features = model.encode_image(preprocessed_image)
+        text_features = model.encode_text(text_tokens)
+        
+        similarities = torch.matmul(text_features, image_features.T).squeeze()
+        top_indices = similarities.argsort(descending=True)[:3]
+        
+        top_keywords = [prompt.split()[i] for i in top_indices]  # Simplified for example
+
+    end_time = time.time()
+    
+    print("Image File Name:", os.path.basename(image_path))
+    print("TOP 3 Keywords (ENG):", top_keywords)
+    print("Execution Time:", end_time - start_time)
+    print()
+
+if __name__ == "__main__":
+    if args.image_path and args.prompt_file:
+        prompts = read_prompts(args.prompt_file)
+        for image_path, prompt in zip(args.image_path, prompts):
+            image_to_keywords(image_path, prompt)
+    else:
+        print("Error: Image File Path or Prompt File is missing")
+"""
+
+"""
+코사인 유사도를 이용한 코드
+
+
+import torch
+from PIL import Image
+import torchvision.transforms as transforms
+from clip import clip
+
+# CLIP 모델 및 전처리기 로드
+device = "cuda" if torch.cuda.is_available() else "cpu"
+model, preprocess = clip.load("ViT-B/32", device=device)
+
+# 미리 정의된 키워드 리스트
+keywords = ["dog", "cat", "bird", "car", "tree", "flower", "building", "sky", "ocean", "mountain"]
+
+# 입력 이미지 로드 및 전처리
+image = Image.open("input_image.jpg")
+image_input = preprocess(image).unsqueeze(0).to(device)
+
+# 텍스트 인코딩
+text_inputs = torch.cat([clip.tokenize(keyword) for keyword in keywords]).to(device)
+
+# 이미지와 텍스트 간 유사도 계산
+with torch.no_grad():
+    image_features = model.encode_image(image_input)
+    text_features = model.encode_text(text_inputs)
+    
+    # 코사인 유사도 계산
+    similarity = text_features @ image_features.T
+
+# 상위 3개의 유사도 값과 해당 키워드 출력
+top_indices = similarity.squeeze().argsort(descending=True)[:3]
+for idx in top_indices:
+    print(f"Keyword: {keywords[idx.item()]}, Similarity: {similarity.squeeze()[idx]:.4f}")
 """
