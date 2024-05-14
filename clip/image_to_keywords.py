@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
 
 """
-명령어 실행 예시 및 결과
+명령어 실행 예시 및 결과 (1)
 
 
 > python clip/image_to_keywords.py --image-path images/artist.jpeg images/baseball-stadium.jpeg images/tiger.jpg
@@ -97,97 +97,58 @@ Execution Time: 3.312255859375
 
 
 """
-프롬프트 반영된 코드!
-
-import clip
-import torch
-from PIL import Image
-import numpy as np
-import time
-import argparse
-import os
-
-# argparse로 입력 인자 처리
-parser = argparse.ArgumentParser()
-parser.add_argument("--image-path", nargs="*", type=str, help="Image File Path", default=[])
-parser.add_argument("--prompt-file", type=str, help="File containing prompts for each image", default="")
-
-args = parser.parse_args()
-
-# Function to read prompts from a file
-def read_prompts(prompt_file):
-    with open(prompt_file, "r") as file:
-        prompts = [line.strip() for line in file.readlines()]
-    return prompts
-
-# Function to perform inference
-def image_to_keywords(image_path: str, prompt: str):
-    start_time = time.time()
-    
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    model, preprocess = clip.load('ViT-B/32', device=device)
-    
-    preprocessed_image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
-    text_tokens = clip.tokenize([prompt]).to(device)  # Tokenizing the custom prompt
-    
-    with torch.no_grad():
-        image_features = model.encode_image(preprocessed_image)
-        text_features = model.encode_text(text_tokens)
-        
-        similarities = torch.matmul(text_features, image_features.T).squeeze()
-        top_indices = similarities.argsort(descending=True)[:3]
-        
-        top_keywords = [prompt.split()[i] for i in top_indices]  # Simplified for example
-
-    end_time = time.time()
-    
-    print("Image File Name:", os.path.basename(image_path))
-    print("TOP 3 Keywords (ENG):", top_keywords)
-    print("Execution Time:", end_time - start_time)
-    print()
-
-if __name__ == "__main__":
-    if args.image_path and args.prompt_file:
-        prompts = read_prompts(args.prompt_file)
-        for image_path, prompt in zip(args.image_path, prompts):
-            image_to_keywords(image_path, prompt)
-    else:
-        print("Error: Image File Path or Prompt File is missing")
-"""
-
-"""
-코사인 유사도를 이용한 코드
+명령어 실행 예시 및 결과 (2)
 
 
-import torch
-from PIL import Image
-import torchvision.transforms as transforms
-from clip import clip
+> python clip/image_to_keywords.py --image-path images/ig/1.jpg images/ig/2.jpg images/ig/3.jpg images/ig/4.jpg images/ig/5.jpg images/ig/6.jpg images/ig/7.jpg images/ig/8.jpg images/ig/9.jpg images/ig/10.jpg
+Image File Path: ['images/ig/1.jpg', 'images/ig/2.jpg', 'images/ig/3.jpg', 'images/ig/4.jpg', 'images/ig/5.jpg', 'images/ig/6.jpg', 'images/ig/7.jpg', 'images/ig/8.jpg', 'images/ig/9.jpg', 'images/ig/10.jpg']
+Image File Name: 1.jpg
+TOP 3 Keywords (ENG): ['Sports/Fitness', 'Media/Entertainment', 'Daily Life']
+TOP 3 Keywords (KOR): ['스포츠/운동', '미디어/엔터테인먼트', '일상']
+Execution Time: 3.783710241317749
 
-# CLIP 모델 및 전처리기 로드
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model, preprocess = clip.load("ViT-B/32", device=device)
+Image File Name: 2.jpg
+TOP 3 Keywords (ENG): ['Sports/Fitness', 'Others', 'Daily Life']
+TOP 3 Keywords (KOR): ['스포츠/운동', '기타', '일상']
+Execution Time: 3.492805004119873
 
-# 미리 정의된 키워드 리스트
-keywords = ["dog", "cat", "bird", "car", "tree", "flower", "building", "sky", "ocean", "mountain"]
+Image File Name: 3.jpg
+TOP 3 Keywords (ENG): ['Food & Beverage', 'Media/Entertainment', 'Comics/Animation/Cartoons']
+TOP 3 Keywords (KOR): ['F&B', '미디어/엔터테인먼트', '만화/애니/툰']
+Execution Time: 3.659393787384033
 
-# 입력 이미지 로드 및 전처리
-image = Image.open("input_image.jpg")
-image_input = preprocess(image).unsqueeze(0).to(device)
+Image File Name: 4.jpg
+TOP 3 Keywords (ENG): ['Comics/Animation/Cartoons', 'Daily Life', 'Marriage/Dating']
+TOP 3 Keywords (KOR): ['만화/애니/툰', '일상', '결혼/연애']
+Execution Time: 3.4755001068115234
 
-# 텍스트 인코딩
-text_inputs = torch.cat([clip.tokenize(keyword) for keyword in keywords]).to(device)
+Image File Name: 5.jpg
+TOP 3 Keywords (ENG): ['Daily Life', 'Pets', 'Comics/Animation/Cartoons']
+TOP 3 Keywords (KOR): ['일상', '반려동물', '만화/애니/툰']
+Execution Time: 3.383308172225952
 
-# 이미지와 텍스트 간 유사도 계산
-with torch.no_grad():
-    image_features = model.encode_image(image_input)
-    text_features = model.encode_text(text_inputs)
-    
-    # 코사인 유사도 계산
-    similarity = text_features @ image_features.T
+Image File Name: 6.jpg
+TOP 3 Keywords (ENG): ['Daily Life', 'Celebrities/Entertainment', 'Others']
+TOP 3 Keywords (KOR): ['일상', '스타/연예인', '기타']
+Execution Time: 3.3157958984375
 
-# 상위 3개의 유사도 값과 해당 키워드 출력
-top_indices = similarity.squeeze().argsort(descending=True)[:3]
-for idx in top_indices:
-    print(f"Keyword: {keywords[idx.item()]}, Similarity: {similarity.squeeze()[idx]:.4f}")
+Image File Name: 7.jpg
+TOP 3 Keywords (ENG): ['Food & Beverage', 'Daily Life', 'Others']
+TOP 3 Keywords (KOR): ['F&B', '일상', '기타']
+Execution Time: 3.3431050777435303
+
+Image File Name: 8.jpg
+TOP 3 Keywords (ENG): ['Travel', 'Daily Life', 'Others']
+TOP 3 Keywords (KOR): ['여행', '일상', '기타']
+Execution Time: 3.34493088722229
+
+Image File Name: 9.jpg
+TOP 3 Keywords (ENG): ['Celebrities/Entertainment', 'Fashion', 'Daily Life']
+TOP 3 Keywords (KOR): ['스타/연예인', '패션', '일상']
+Execution Time: 3.6524240970611572
+
+Image File Name: 10.jpg
+TOP 3 Keywords (ENG): ['Media/Entertainment', 'Celebrities/Entertainment', 'Sports/Fitness']
+TOP 3 Keywords (KOR): ['미디어/엔터테인먼트', '스타/연예인', '스포츠/운동']
+Execution Time: 3.5192861557006836
 """

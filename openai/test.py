@@ -29,7 +29,7 @@ else:
 
 
 """
-명령어 실행 예시 및 결과
+명령어 실행 예시 및 결과 (1)
 
 
 > python openai/images_to_keywords.py --image-path images/ig/1.jpg images/ig/2.jpg images/ig/3.jpg images/ig/4.jpg images/ig/5.jpg images/ig/6.jpg images/ig/7.jpg images/ig/8.jpg images/ig/9.jpg images/ig/10.jpg
@@ -45,4 +45,14 @@ Image_8: ['F&B', '일상', '기타']
 Image_9: ['여행', '일상', '기타']
 Image_10: ['패션', '뷰티', '일상']
 Execution Time: 27.863433837890625
+"""
+
+
+"""
+명령어 실행 예시 및 결과 (2)
+
+
+> python openai/test_ig.py --image-path images/yt/닥신TV.jpg      
+TOP 3 Keywords: ['자동차/모빌리티', '미디어/엔터테인먼트', '일상']
+Execution Time: 6.768593788146973
 """
