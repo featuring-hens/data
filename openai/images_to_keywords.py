@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
 
 """
-명령어 실행 예시 및 결과
+명령어 실행 예시 및 결과 (1)
 
 
 > python openai/images_to_keywords.py --image-path images/ig/amottivation.jpg images/ig/jbkwak.jpg images/ig/risabae_art.jpg
@@ -98,4 +98,24 @@ Image_1: ['스포츠/운동', '일상', '패션']
 Image_2: ['여행', '일상', '미디어/엔터테인먼트']
 Image_3: ['뷰티', '패션', '스타/연예인']
 Execution Time: 15.57243800163269
+"""
+
+
+"""
+명령어 실행 예시 및 결과 (2)
+
+
+> python openai/images_to_keywords.py --image-path images/ig_prof_post/1.jpg images/ig_prof_post/2.jpg images/ig_prof_post/3.jpg images/ig_prof_post/4.jpg images/ig_prof_post/5.jpg images/ig_prof_post/6.jpg images/ig_prof_post/7.jpg images/ig_prof_post/8.jpg images/ig_prof_post/9.jpg images/ig_prof_post/10.jpg
+TOP 3 Keywords:
+Image_1: ['스포츠/운동', '일상', '여행']
+Image_2: ['스포츠/운동', 'F&B', '일상']
+Image_3: ['홈/리빙', '일상', '육아/키즈']
+Image_4: ['만화/애니/툰', '일상', '취미/문화']
+Image_5: ['반려동물', '일상', '여행']
+Image_6: ['뷰티', '일상', '육아/키즈']
+Image_7: ['F&B', '일상', '여행']
+Image_8: ['여행', '일상', '스타/연예인']
+Image_9: ['패션', '뷰티', '일상']
+Image_10: ['뷰티', '패션', '일상']
+Execution Time: 29.09743094444275
 """

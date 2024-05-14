@@ -152,3 +152,118 @@ TOP 3 Keywords (ENG): ['Media/Entertainment', 'Celebrities/Entertainment', 'Spor
 TOP 3 Keywords (KOR): ['미디어/엔터테인먼트', '스타/연예인', '스포츠/운동']
 Execution Time: 3.5192861557006836
 """
+
+
+"""
+명령어 실행 예시 및 결과 (3)
+
+
+> python clip/image_to_keywords.py --image-path images/ig/1.jpg images/ig/2.jpg images/ig/3.jpg images/ig/4.jpg images/ig/5.jpg images/ig/6.jpg images/ig/7.jpg images/ig/8.jpg images/ig/9.jpg images/ig/10.jpg
+Image File Name: 1.jpg
+TOP 3 Keywords (ENG): ['Sports/Fitness', 'Media/Entertainment', 'Daily Life']
+TOP 3 Keywords (KOR): ['스포츠/운동', '미디어/엔터테인먼트', '일상']
+Execution Time: 3.783710241317749
+
+Image File Name: 2.jpg
+TOP 3 Keywords (ENG): ['Sports/Fitness', 'Others', 'Daily Life']
+TOP 3 Keywords (KOR): ['스포츠/운동', '기타', '일상']
+Execution Time: 3.492805004119873
+
+Image File Name: 3.jpg
+TOP 3 Keywords (ENG): ['Food & Beverage', 'Media/Entertainment', 'Comics/Animation/Cartoons']
+TOP 3 Keywords (KOR): ['F&B', '미디어/엔터테인먼트', '만화/애니/툰']
+Execution Time: 3.659393787384033
+
+Image File Name: 4.jpg
+TOP 3 Keywords (ENG): ['Comics/Animation/Cartoons', 'Daily Life', 'Marriage/Dating']
+TOP 3 Keywords (KOR): ['만화/애니/툰', '일상', '결혼/연애']
+Execution Time: 3.4755001068115234
+
+Image File Name: 5.jpg
+TOP 3 Keywords (ENG): ['Daily Life', 'Pets', 'Comics/Animation/Cartoons']
+TOP 3 Keywords (KOR): ['일상', '반려동물', '만화/애니/툰']
+Execution Time: 3.383308172225952
+
+Image File Name: 6.jpg
+TOP 3 Keywords (ENG): ['Daily Life', 'Celebrities/Entertainment', 'Others']
+TOP 3 Keywords (KOR): ['일상', '스타/연예인', '기타']
+Execution Time: 3.3157958984375
+
+Image File Name: 7.jpg
+TOP 3 Keywords (ENG): ['Food & Beverage', 'Daily Life', 'Others']
+TOP 3 Keywords (KOR): ['F&B', '일상', '기타']
+Execution Time: 3.3431050777435303
+
+Image File Name: 8.jpg
+TOP 3 Keywords (ENG): ['Travel', 'Daily Life', 'Others']
+TOP 3 Keywords (KOR): ['여행', '일상', '기타']
+Execution Time: 3.34493088722229
+
+Image File Name: 9.jpg
+TOP 3 Keywords (ENG): ['Celebrities/Entertainment', 'Fashion', 'Daily Life']
+TOP 3 Keywords (KOR): ['스타/연예인', '패션', '일상']
+Execution Time: 3.6524240970611572
+
+Image File Name: 10.jpg
+TOP 3 Keywords (ENG): ['Media/Entertainment', 'Celebrities/Entertainment', 'Sports/Fitness']
+TOP 3 Keywords (KOR): ['미디어/엔터테인먼트', '스타/연예인', '스포츠/운동']
+Execution Time: 3.5192861557006836
+"""
+
+
+"""
+명령어 실행 예시 및 결과 (4)
+
+
+> python clip/image_to_keywords.py --image-path images/ig_post/1.jpg images/ig_post/2.jpg images/ig_post/3.jpg images/ig_post/4.jpg images/ig_post/5.jpg images/ig_post/6.jpg images/ig_post/7.jpg images/ig_post/8.jpg images/ig_post/9.jpg images/ig_post/10.jpg
+Image File Path: ['images/ig_post/1.jpg', 'images/ig_post/2.jpg', 'images/ig_post/3.jpg', 'images/ig_post/4.jpg', 'images/ig_post/5.jpg', 'images/ig_post/6.jpg', 'images/ig_post/7.jpg', 'images/ig_post/8.jpg', 'images/ig_post/9.jpg', 'images/ig_post/10.jpg']
+Image File Name: 1.jpg
+TOP 3 Keywords (ENG): ['Sports/Fitness', 'Daily Life', 'Hobbies/Culture']
+TOP 3 Keywords (KOR): ['스포츠/운동', '일상', '취미/문화']
+Execution Time: 3.8931541442871094
+
+Image File Name: 2.jpg
+TOP 3 Keywords (ENG): ['Sports/Fitness', 'Celebrities/Entertainment', 'Media/Entertainment']
+TOP 3 Keywords (KOR): ['스포츠/운동', '스타/연예인', '미디어/엔터테인먼트']
+Execution Time: 3.5437159538269043
+
+Image File Name: 3.jpg
+TOP 3 Keywords (ENG): ['Home/Living', 'Daily Life', 'Hobbies/Culture']
+TOP 3 Keywords (KOR): ['홈/리빙', '일상', '취미/문화']
+Execution Time: 3.3530430793762207
+
+Image File Name: 4.jpg
+TOP 3 Keywords (ENG): ['Comics/Animation/Cartoons', 'Daily Life', 'Marriage/Dating']
+TOP 3 Keywords (KOR): ['만화/애니/툰', '일상', '결혼/연애']
+Execution Time: 3.3914973735809326
+
+Image File Name: 5.jpg
+TOP 3 Keywords (ENG): ['Daily Life', 'Pets', 'Hobbies/Culture']
+TOP 3 Keywords (KOR): ['일상', '반려동물', '취미/문화']
+Execution Time: 3.4652960300445557
+
+Image File Name: 6.jpg
+TOP 3 Keywords (ENG): ['Parenting/Kids', 'Daily Life', 'Marriage/Dating']
+TOP 3 Keywords (KOR): ['육아/키즈', '일상', '결혼/연애']
+Execution Time: 3.510446071624756
+
+Image File Name: 7.jpg
+TOP 3 Keywords (ENG): ['Food & Beverage', 'Daily Life', 'Hobbies/Culture']
+TOP 3 Keywords (KOR): ['F&B', '일상', '취미/문화']
+Execution Time: 3.469528913497925
+
+Image File Name: 8.jpg
+TOP 3 Keywords (ENG): ['Travel', 'Daily Life', 'Others']
+TOP 3 Keywords (KOR): ['여행', '일상', '기타']
+Execution Time: 3.481348991394043
+
+Image File Name: 9.jpg
+TOP 3 Keywords (ENG): ['Fashion', 'Celebrities/Entertainment', 'Others']
+TOP 3 Keywords (KOR): ['패션', '스타/연예인', '기타']
+Execution Time: 3.3355510234832764
+
+Image File Name: 10.jpg
+TOP 3 Keywords (ENG): ['Fashion', 'Beauty', 'Daily Life']
+TOP 3 Keywords (KOR): ['패션', '뷰티', '일상']
+Execution Time: 3.5700368881225586
+"""
