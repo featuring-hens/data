@@ -27,15 +27,16 @@ args = parser.parse_args()
 # keywords = [str(kw).strip() for kw in keywords if str(kw) != "NaN"]
 keywords = list(dict_keywords.keys())
 
+# CLIP 모델 로드
+device = "cuda" if torch.cuda.is_available() else "cpu"
+# model, preprocess = clip.load('RN101', device=device)
+model, preprocess = clip.load('ViT-B/32', device=device)
+
 def image_to_keywords(image_path: str):
     """
     CLIP 모델을 사용하여 입력된 이미지와 관련된 피처링 정의 키워드(3개)를 출력하는 함수
     """
     start_time = time.time()
-
-    # CLIP 모델 로드
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    model, preprocess = clip.load('ViT-B/32', device=device)
 
     # CLIP 모델에 맞게 이미지 전처리
     preprocessed_image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
@@ -77,22 +78,57 @@ if __name__ == "__main__":
 명령어 실행 예시 및 결과 (1)
 
 
-> python clip/image_to_keywords.py --image-path images/artist.jpeg images/baseball-stadium.jpeg images/tiger.jpg
+> python clip/image_to_keywords.py --image-path images/ig_post/1.jpg images/ig_post/2.jpg images/ig_post/3.jpg images/ig_post/4.jpg images/ig_post/5.jpg images/ig_post/6.jpg images/ig_post/7.jpg images/ig_post/8.jpg images/ig_post/9.jpg images/ig_post/10.jpg
+Image File Path: ['images/ig_post/1.jpg', 'images/ig_post/2.jpg', 'images/ig_post/3.jpg', 'images/ig_post/4.jpg', 'images/ig_post/5.jpg', 'images/ig_post/6.jpg', 'images/ig_post/7.jpg', 'images/ig_post/8.jpg', 'images/ig_post/9.jpg', 'images/ig_post/10.jpg']
+Image File Name: 1.jpg
+TOP 3 Keywords (ENG): ['Sports/Fitness', 'Daily Life', 'Hobbies/Culture']
+TOP 3 Keywords (KOR): ['스포츠/운동', '일상', '취미/문화']
+Execution Time: 0.4062638282775879
 
-Image File Name: artist.jpeg
-TOP 3 Keywords (ENG): ['Comics/Animation/Cartoons', 'Hobbies/Culture', 'Celebrities/Entertainment']
-TOP 3 Keywords (KOR): ['만화/애니/툰', '취미/문화', '스타/연예인']
-Execution Time: 3.266166925430298
+Image File Name: 2.jpg
+TOP 3 Keywords (ENG): ['Sports/Fitness', 'Celebrities/Entertainment', 'Media/Entertainment']
+TOP 3 Keywords (KOR): ['스포츠/운동', '스타/연예인', '미디어/엔터테인먼트']
+Execution Time: 0.48108696937561035
 
-Image File Name: baseball-stadium.jpeg
-TOP 3 Keywords (ENG): ['Beauty', 'Home/Living', 'Sports/Fitness']
-TOP 3 Keywords (KOR): ['뷰티', '홈/리빙', '스포츠/운동']
-Execution Time: 3.322561025619507
+Image File Name: 3.jpg
+TOP 3 Keywords (ENG): ['Home/Living', 'Daily Life', 'Hobbies/Culture']
+TOP 3 Keywords (KOR): ['홈/리빙', '일상', '취미/문화']
+Execution Time: 0.5586161613464355
 
-Image File Name: tiger.jpg
-TOP 3 Keywords (ENG): ['Beauty', 'Travel', 'Fashion']
-TOP 3 Keywords (KOR): ['뷰티', '여행', '패션']
-Execution Time: 3.312255859375
+Image File Name: 4.jpg
+TOP 3 Keywords (ENG): ['Comics/Animation/Cartoons', 'Daily Life', 'Marriage/Dating']
+TOP 3 Keywords (KOR): ['만화/애니/툰', '일상', '결혼/연애']
+Execution Time: 0.7358639240264893
+
+Image File Name: 5.jpg
+TOP 3 Keywords (ENG): ['Daily Life', 'Pets', 'Hobbies/Culture']
+TOP 3 Keywords (KOR): ['일상', '반려동물', '취미/문화']
+Execution Time: 0.5884578227996826
+
+Image File Name: 6.jpg
+TOP 3 Keywords (ENG): ['Parenting/Kids', 'Daily Life', 'Marriage/Dating']
+TOP 3 Keywords (KOR): ['육아/키즈', '일상', '결혼/연애']
+Execution Time: 0.5739848613739014
+
+Image File Name: 7.jpg
+TOP 3 Keywords (ENG): ['Food & Beverage', 'Daily Life', 'Hobbies/Culture']
+TOP 3 Keywords (KOR): ['F&B', '일상', '취미/문화']
+Execution Time: 0.6256668567657471
+
+Image File Name: 8.jpg
+TOP 3 Keywords (ENG): ['Travel', 'Daily Life', 'Others']
+TOP 3 Keywords (KOR): ['여행', '일상', '기타']
+Execution Time: 0.713547945022583
+
+Image File Name: 9.jpg
+TOP 3 Keywords (ENG): ['Fashion', 'Celebrities/Entertainment', 'Others']
+TOP 3 Keywords (KOR): ['패션', '스타/연예인', '기타']
+Execution Time: 0.5839757919311523
+
+Image File Name: 10.jpg
+TOP 3 Keywords (ENG): ['Fashion', 'Beauty', 'Daily Life']
+TOP 3 Keywords (KOR): ['패션', '뷰티', '일상']
+Execution Time: 0.5879721641540527
 """
 
 
