@@ -30,7 +30,7 @@ keywords = list(dict_keywords.keys())
 # CLIP 모델 로드
 device = "cuda" if torch.cuda.is_available() else "cpu"
 # model, preprocess = clip.load('RN101', device=device)
-model, preprocess = clip.load('ViT-B/32', device=device)
+model, preprocess = clip.load("ViT-B/32", device=device)
 
 def image_to_keywords(image_path: str):
     """
