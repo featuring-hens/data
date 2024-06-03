@@ -87,3 +87,46 @@ if __name__ == "__main__":
             shortform_to_keywords(shortform_path)
     else:
         print("Error: Shortform File Path Required")
+
+
+"""
+명령어 실행 예시 및 결과 (1)
+
+
+> python clip/shortform_to_keywords.py --shortform-path /Users/je/desktop/여행.mp4 /Users/je/desktop/화장.mp4 /Users/je/desktop/강아지.mp4 /Users/je/desktop/아기.mp4 /Users/je/desktop/차.mp4 /Users/je/desktop/음식.mp4 /Users/je/desktop/홈.mp4  
+Shortform File Path: ['/Users/je/desktop/여행.mp4', '/Users/je/desktop/화장.mp4', '/Users/je/desktop/강아지.mp4', '/Users/je/desktop/아기.mp4', '/Users/je/desktop/차.mp4', '/Users/je/desktop/음식.mp4', '/Users/je/desktop/홈.mp4']
+Shortform File Name: 여행.mp4
+TOP 3 Keywords (ENG): ['Travel', 'Daily Life', 'Others']
+TOP 3 Keywords (KOR): ['여행', '일상', '기타']
+Execution Time: 9.171317100524902
+
+Shortform File Name: 화장.mp4
+TOP 3 Keywords (ENG): ['Beauty', 'Daily Life', 'Hobbies/Culture']
+TOP 3 Keywords (KOR): ['뷰티', '일상', '취미/문화']
+Execution Time: 8.599191188812256
+
+Shortform File Name: 강아지.mp4
+TOP 3 Keywords (ENG): ['Pets', 'Home/Living', 'Comics/Animation/Cartoons']
+TOP 3 Keywords (KOR): ['반려동물', '홈/리빙', '만화/애니/툰']
+Execution Time: 11.893131017684937
+
+Shortform File Name: 아기.mp4
+TOP 3 Keywords (ENG): ['Parenting/Kids', 'Daily Life', 'Comics/Animation/Cartoons']
+TOP 3 Keywords (KOR): ['육아/키즈', '일상', '만화/애니/툰']
+Execution Time: 13.051569938659668
+
+Shortform File Name: 차.mp4
+TOP 3 Keywords (ENG): ['Automotive/Mobility', 'Daily Life', 'Celebrities/Entertainment']
+TOP 3 Keywords (KOR): ['자동차/모빌리티', '일상', '스타/연예인']
+Execution Time: 9.190489053726196
+
+Shortform File Name: 음식.mp4
+TOP 3 Keywords (ENG): ['Food & Beverage', 'Home/Living', 'Marriage/Dating']
+TOP 3 Keywords (KOR): ['F&B', '홈/리빙', '결혼/연애']
+Execution Time: 11.898238897323608
+
+Shortform File Name: 홈.mp4
+TOP 3 Keywords (ENG): ['Home/Living', 'Daily Life', 'Comics/Animation/Cartoons']
+TOP 3 Keywords (KOR): ['홈/리빙', '일상', '만화/애니/툰']
+Execution Time: 11.232323169708252
+"""
